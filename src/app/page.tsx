@@ -7,11 +7,6 @@ const projects = [
     link: "https://github.com/tanisha-kothari/project-one",
   },
   {
-    title: "Cozy Forest",
-    description: "A 3D cozy game where you live in the midst of the forest, developing a town.",
-    link: "https://github.com/tanisha-kothari/project-two",
-  },
-  {
     title: "Cozy Chop",
     description: "Chop trees and build your cozy world!",
     embed: "https://itch.io/embed/3450656?linkback=true&border_width=5",
