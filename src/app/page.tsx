@@ -11,6 +11,12 @@ const projects = [
     description: "A 3D cozy game where you live in the midst of the forest, developing a town.",
     link: "https://github.com/tanisha-kothari/project-two",
   },
+  {
+    title: "Cozy Chop",
+    description: "Chop trees and build your cozy world!",
+    embed: "https://itch.io/embed/3450656?linkback=true&border_width=5",
+    iframeLink: "https://tanigames111.itch.io/cozy-chop",
+  },
 ];
 
 export default function Home() {
@@ -41,10 +47,22 @@ export default function Home() {
           {projects.map((project, index) => (
             <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-lg">
               <h3 className="text-xl font-bold">{project.title}</h3>
-              <p className="text-gray-400">{project.description}</p>
-              <a href={project.link} target="_blank" className="text-blue-400 mt-2 inline-block">
-                View on Itch.io →
-              </a>
+              <p className="text-gray-400 mb-2">{project.description}</p>
+              {project.embed ? (
+                <iframe
+                  src={project.embed}
+                  frameBorder="0"
+                  width="100%"
+                  height="175"
+                  className="rounded"
+                >
+                  <a href={project.iframeLink}>{project.title} on Itch.io</a>
+                </iframe>
+              ) : (
+                <a href={project.link} target="_blank" className="text-blue-400 mt-2 inline-block">
+                  View on Itch.io →
+                </a>
+              )}
             </div>
           ))}
         </div>
