@@ -5,15 +5,15 @@ const projects = [
   {
     id: 1,
     title: "Balloon Popper",
-    video: "/videos/Balloon_Popper.mp4",
-    description: "A 2D mobile game where various coloured balloons fly up.Pop them before they fly up the screen.",
+    video: "Balloon_Popper.mp4",
+    description: "A 2D mobile game where various coloured balloons fly up. Pop them before they fly up the screen.",
     category: "Unity",
     github: "https://github.com/yourusername/balloon-popper",
   },
   {
     id: 2,
     title: "Block Dodger",
-    video: "/videos/Block_dodge.mp4",
+    video: "Block_dodge.mp4",
     description: "A 2D mobile game where a cute rabbit is supposed to dodge blocks which fall at random.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BlockDodger.git",
@@ -21,7 +21,7 @@ const projects = [
   {
     id: 3,
     title: "Ball Dodge",
-    video: "/videos/Ball_Dodge.mp4",
+    video: "Ball_Dodge.mp4",
     description: "A simple 3D mobile game where the player is supposed to dodge the balls coming down the ramp at full speed.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BallDodge.git",
@@ -29,69 +29,14 @@ const projects = [
   {
     id: 4,
     title: "Coin Collector",
-    video: "/videos/CCoin_Collector_unreal.mp4",
+    video: "CCoin_Collector_unreal.mp4",
     description: "A clean, 3D game where the player is supposed to collect coins and be safe from AI enemies.",
     category: "Unreal",
     github: "https://github.com/Tanisha-kothari/MyFirstGame.git",
   },
-  {
-    id: 5,
-    title: "Cozy Chop",
-    video: "",
-    description: "Coming soon!",
-    category: "Unity",
-    github: "",
-  },
-  {
-    id: 6,
-    title: "Lost Souls",
-    video: "",
-    description: "Coming soon!",
-    category: "Unity",
-    github: "",
-  },
-  {
-    id: 7,
-    title: "Speed for Fun",
-    video: "",
-    description: "Coming soon!",
-    category: "Unity",
-    github: "",
-  },
-  {
-    id: 8,
-    title: "Flip the Gravity",
-    video: "",
-    description: "Coming soon!",
-    category: "Unity",
-    github: "",
-  },
-    {
-    id: 9,
-    title: "Carrot Collector",
-    video: "",
-    description: "A basic 2D game where a cute rabbit is supposed to collect all the available carrots on the screen to win the game.",
-    category: "Unity",
-    github: "https://github.com/Tanisha-kothari/Carrot-Collector.git",
-  },
-
-      {
-    id: 9,
-    title: "Fruit Frenzy",
-    video: "",
-    description: "A simple 2D game where the player is supposed to collect good apples and avoid bad apples.",
-    category: "Unity",
-    github: "https://github.com/Tanisha-kothari/FruitFrenzy.git",
-  },
-
-      {
-    id: 9,
-    title: "Maze Ball",
-    video: "",
-    description: "A simple 3D game where you’re supposed to move the maze to guide the mall out in a limited amount of time",
-    category: "Unity",
-    github: "https://github.com/Tanisha-kothari/Maze-Ball.git",
-  },
+  // Coming soon projects
+  { id: 5, title: "Cozy Chop", video: "", description: "Coming soon!", category: "Unity", github: "" },
+  { id: 6, title: "Lost Souls", video: "", description: "Coming soon!", category: "Unity", github: "" },
 ];
 
 const categories = ["All", "Unity", "Unreal", "Figma"];
@@ -114,7 +59,6 @@ export default function ProjectGallery() {
         vid.currentTime = 0;
       }
     });
-
     const vid = videoRefs.current.get(id);
     if (vid) {
       vid.currentTime = 0;
@@ -136,6 +80,13 @@ export default function ProjectGallery() {
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
+  const getVideoSrc = (videoFileName) => {
+    // If video exists, return public path, else return a placeholder image
+    return videoFileName
+      ? `${process.env.PUBLIC_URL}/videos/${videoFileName}`
+      : `${process.env.PUBLIC_URL}/videos/video_placeholder.png`; // Add a placeholder in public/videos
+  };
+
   return (
     <>
       {/* Category Filter */}
@@ -144,12 +95,11 @@ export default function ProjectGallery() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300
-              ${
-                activeCategory === cat
-                  ? "bg-cocoa-700 text-white shadow-md"
-                  : "bg-peach-100 hover:bg-peach-200 text-cocoa-700"
-              }`}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+              activeCategory === cat
+                ? "bg-cocoa-700 text-white shadow-md"
+                : "bg-peach-100 hover:bg-peach-200 text-cocoa-700"
+            }`}
           >
             {cat}
           </button>
@@ -172,15 +122,23 @@ export default function ProjectGallery() {
             className="relative cursor-pointer overflow-hidden bg-white rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-pink-300"
           >
             <div className="relative">
-              <video
-                ref={setVideoRef(p.id)}
-                src={p.video}
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="w-full h-60 sm:h-72 lg:h-80 object-cover rounded-xl transition-opacity duration-200"
-              />
+              {p.video ? (
+                <video
+                  ref={setVideoRef(p.id)}
+                  src={getVideoSrc(p.video)}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-60 sm:h-72 lg:h-80 object-cover rounded-xl transition-opacity duration-200"
+                />
+              ) : (
+                <img
+                  src={getVideoSrc("")}
+                  alt="Coming soon"
+                  className="w-full h-60 sm:h-72 lg:h-80 object-cover rounded-xl"
+                />
+              )}
               <div className="p-4">
                 <h4 className="font-semibold">{p.title}</h4>
                 <p className="text-sm text-cocoa-700 mt-1">
