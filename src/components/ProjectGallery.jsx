@@ -34,7 +34,6 @@ const projects = [
     category: "Unreal",
     github: "https://github.com/Tanisha-kothari/MyFirstGame.git",
   },
-  // Coming soon projects
   { id: 5, title: "Cozy Chop", video: "", description: "Coming soon!", category: "Unity", github: "" },
   { id: 6, title: "Lost Souls", video: "", description: "Coming soon!", category: "Unity", github: "" },
 ];
@@ -46,6 +45,7 @@ export default function ProjectGallery() {
   const [activeCategory, setActiveCategory] = useState("All");
   const videoRefs = useRef(new Map());
 
+  // Set video ref for hover previews
   const setVideoRef = (id) => (el) => {
     if (el) videoRefs.current.set(id, el);
     else videoRefs.current.delete(id);
@@ -80,11 +80,11 @@ export default function ProjectGallery() {
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
-  const getVideoSrc = (videoFileName) => {
-    // If video exists, return public path, else return a placeholder image
-    return videoFileName
-      ? `${process.env.PUBLIC_URL}/videos/${videoFileName}`
-      : `${process.env.PUBLIC_URL}/videos/video_placeholder.png`; // Add a placeholder in public/videos
+  // Get video src reliably in dev & production
+  const getVideoSrc = (fileName) => {
+    if (!fileName)
+      return new URL("/videos/video_placeholder.png", import.meta.url).href;
+    return new URL(`/videos/${fileName}`, import.meta.url).href;
   };
 
   return (
@@ -145,14 +145,13 @@ export default function ProjectGallery() {
                   Click to view details
                 </p>
 
-                {/* GitHub Repo Button */}
                 {p.github && (
                   <a
                     href={p.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-2 inline-block px-3 py-1 rounded-lg bg-pink-200 hover:bg-pink-300 text-sm"
-                    onClick={(e) => e.stopPropagation()} // prevent modal opening
+                    onClick={(e) => e.stopPropagation()}
                   >
                     View Repo
                   </a>
