@@ -13,7 +13,7 @@ const projects = [
   {
     id: 2,
     title: "Block Dodger",
-    video: "Block_dodge.mp4",
+    video: "https://github.com/Tanisha-kothari/portfolio/blob/main/public/videos/Ball_Dodge.mp4",
     description: "A 2D mobile game where a cute rabbit is supposed to dodge blocks which fall at random.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BlockDodger.git",
