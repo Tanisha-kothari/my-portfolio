@@ -5,7 +5,7 @@ const projects = [
   {
     id: 1,
     title: "Balloon Popper",
-    video: "Balloon_Popper.mp4",
+    video: "/api/videos/Balloon_Popper.mp4",
     description: "A 2D mobile game where various coloured balloons fly up. Pop them before they fly up the screen.",
     category: "Unity",
     github: "https://github.com/yourusername/balloon-popper",
@@ -13,7 +13,7 @@ const projects = [
   {
     id: 2,
     title: "Block Dodger",
-    video: "https://github.com/Tanisha-kothari/portfolio/blob/main/public/videos/Ball_Dodge.mp4",
+    video: "/api/videos/Block_Dodge.mp4",
     description: "A 2D mobile game where a cute rabbit is supposed to dodge blocks which fall at random.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BlockDodger.git",
@@ -21,7 +21,7 @@ const projects = [
   {
     id: 3,
     title: "Ball Dodge",
-    video: "Ball_Dodge.mp4",
+    video: "/api/videos/Ball_Dodge.mp4",
     description: "A simple 3D mobile game where the player is supposed to dodge the balls coming down the ramp at full speed.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BallDodge.git",
@@ -29,13 +29,43 @@ const projects = [
   {
     id: 4,
     title: "Coin Collector",
-    video: "CCoin_Collector_unreal.mp4",
+    video: "/api/videos/CCoin_Collector_unreal.mp4",
     description: "A clean, 3D game where the player is supposed to collect coins and be safe from AI enemies.",
     category: "Unreal",
     github: "https://github.com/Tanisha-kothari/MyFirstGame.git",
   },
-  { id: 5, title: "Cozy Chop", video: "", description: "Coming soon!", category: "Unity", github: "" },
-  { id: 6, title: "Lost Souls", video: "", description: "Coming soon!", category: "Unity", github: "" },
+  {
+    id: 5,
+    title: "Cozy Chop",
+    video: "",
+    description: "Coming soon!",
+    category: "Unity",
+    github: "",
+  },
+  {
+    id: 6,
+    title: "Lost Souls",
+    video: "",
+    description: "Coming soon!",
+    category: "Unity",
+    github: "",
+  },
+  {
+    id: 7,
+    title: "Speed for Fun",
+    video: "",
+    description: "Coming soon!",
+    category: "Unity",
+    github: "",
+  },
+  {
+    id: 8,
+    title: "Flip the Gravity",
+    video: "",
+    description: "Coming soon!",
+    category: "Unity",
+    github: "",
+  },
 ];
 
 const categories = ["All", "Unity", "Unreal", "Figma"];
@@ -45,7 +75,6 @@ export default function ProjectGallery() {
   const [activeCategory, setActiveCategory] = useState("All");
   const videoRefs = useRef(new Map());
 
-  // Set video ref for hover previews
   const setVideoRef = (id) => (el) => {
     if (el) videoRefs.current.set(id, el);
     else videoRefs.current.delete(id);
@@ -59,6 +88,7 @@ export default function ProjectGallery() {
         vid.currentTime = 0;
       }
     });
+
     const vid = videoRefs.current.get(id);
     if (vid) {
       vid.currentTime = 0;
@@ -80,13 +110,6 @@ export default function ProjectGallery() {
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
-  // Get video src reliably in dev & production
-  const getVideoSrc = (fileName) => {
-    if (!fileName)
-      return new URL("/videos/video_placeholder.png", import.meta.url).href;
-    return new URL(`/videos/${fileName}`, import.meta.url).href;
-  };
-
   return (
     <>
       {/* Category Filter */}
@@ -95,11 +118,12 @@ export default function ProjectGallery() {
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-              activeCategory === cat
-                ? "bg-cocoa-700 text-white shadow-md"
-                : "bg-peach-100 hover:bg-peach-200 text-cocoa-700"
-            }`}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300
+              ${
+                activeCategory === cat
+                  ? "bg-cocoa-700 text-white shadow-md"
+                  : "bg-peach-100 hover:bg-peach-200 text-cocoa-700"
+              }`}
           >
             {cat}
           </button>
@@ -117,26 +141,20 @@ export default function ProjectGallery() {
             onKeyDown={(e) =>
               (e.key === "Enter" || e.key === " ") && setSelected(p)
             }
-            onMouseOver={() => playPreview(p.id)}
-            onMouseOut={() => stopPreview(p.id)}
+            onMouseOver={() => p.video && playPreview(p.id)}
+            onMouseOut={() => p.video && stopPreview(p.id)}
             className="relative cursor-pointer overflow-hidden bg-white rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-pink-300"
           >
             <div className="relative">
-              {p.video ? (
+              {p.video && (
                 <video
                   ref={setVideoRef(p.id)}
-                  src={getVideoSrc(p.video)}
+                  src={p.video}
                   muted
                   loop
                   playsInline
                   preload="metadata"
                   className="w-full h-60 sm:h-72 lg:h-80 object-cover rounded-xl transition-opacity duration-200"
-                />
-              ) : (
-                <img
-                  src={getVideoSrc("")}
-                  alt="Coming soon"
-                  className="w-full h-60 sm:h-72 lg:h-80 object-cover rounded-xl"
                 />
               )}
               <div className="p-4">
