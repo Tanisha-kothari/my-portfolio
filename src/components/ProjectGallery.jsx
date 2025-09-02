@@ -29,7 +29,7 @@ const projects = [
   {
     id: 4,
     title: "Coin Collector",
-    video: "/videos/Coin_Collector_unreal.mp4",
+    video: "/videos/CCoin_Collector_unreal.mp4",
     description: "A clean, 3D game where the player is supposed to collect coins and be safe from AI enemies.",
     category: "Unreal",
     github: "https://github.com/Tanisha-kothari/MyFirstGame.git",
