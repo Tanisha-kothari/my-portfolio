@@ -5,7 +5,7 @@ const projects = [
   {
     id: 1,
     title: "Balloon Popper",
-    video: "/api/videos/Balloon_Popper.mp4",
+    video: "/videos/Balloon_Popper.mp4",
     description: "A 2D mobile game where various coloured balloons fly up. Pop them before they fly up the screen.",
     category: "Unity",
     github: "https://github.com/yourusername/balloon-popper",
@@ -13,7 +13,7 @@ const projects = [
   {
     id: 2,
     title: "Block Dodger",
-    video: "/api/videos/Block_Dodge.mp4",
+    video: "/videos/Block_dodge.mp4",
     description: "A 2D mobile game where a cute rabbit is supposed to dodge blocks which fall at random.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BlockDodger.git",
@@ -21,7 +21,7 @@ const projects = [
   {
     id: 3,
     title: "Ball Dodge",
-    video: "/api/videos/Ball_Dodge.mp4",
+    video: "/videos/Ball_Dodge.mp4",
     description: "A simple 3D mobile game where the player is supposed to dodge the balls coming down the ramp at full speed.",
     category: "Unity",
     github: "https://github.com/Tanisha-kothari/BallDodge.git",
@@ -29,7 +29,7 @@ const projects = [
   {
     id: 4,
     title: "Coin Collector",
-    video: "/api/videos/CCoin_Collector_unreal.mp4",
+    video: "/videos/CCoin_Collector_unreal.mp4",
     description: "A clean, 3D game where the player is supposed to collect coins and be safe from AI enemies.",
     category: "Unreal",
     github: "https://github.com/Tanisha-kothari/MyFirstGame.git",
